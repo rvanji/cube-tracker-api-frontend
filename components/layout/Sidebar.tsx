@@ -7,7 +7,9 @@ import {
   ChartColumn,
   Target,
   Settings,
+  LogOut,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const menuItems = [
   {
@@ -36,7 +38,12 @@ const menuItems = [
     icon: Settings,
   },
 ];
+const router = useRouter();
 
+function handleLogout() {
+  localStorage.removeItem("cube_tracker_token");
+  router.replace("/login");
+}
 export default function Sidebar() {
   return (
     <aside className="w-72 border-r border-slate-800 bg-slate-950">
@@ -63,6 +70,13 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      <button
+        onClick={handleLogout}
+        className="mx-4 mt-6 flex w-[calc(100%-2rem)] items-center gap-4 rounded-xl p-4 text-slate-400 transition hover:bg-red-500/10 hover:text-red-400"
+      >
+        <LogOut size={20} />
+        Logout
+      </button>
     </aside>
   );
 }

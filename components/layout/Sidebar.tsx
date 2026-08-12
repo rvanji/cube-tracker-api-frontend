@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Wallet,
@@ -9,7 +10,6 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 const menuItems = [
   {
@@ -38,13 +38,15 @@ const menuItems = [
     icon: Settings,
   },
 ];
-const router = useRouter();
 
-function handleLogout() {
-  localStorage.removeItem("cube_tracker_token");
-  router.replace("/login");
-}
 export default function Sidebar() {
+  const router = useRouter();
+
+  function handleLogout() {
+    localStorage.removeItem("cube_tracker_token");
+    router.replace("/login");
+  }
+
   return (
     <aside className="w-72 border-r border-slate-800 bg-slate-950">
       <div className="p-8">
@@ -64,12 +66,12 @@ export default function Sidebar() {
               className="mb-2 flex items-center gap-4 rounded-xl p-4 text-slate-300 transition hover:bg-slate-800 hover:text-white"
             >
               <Icon size={20} />
-
               {item.title}
             </Link>
           );
         })}
       </nav>
+
       <button
         onClick={handleLogout}
         className="mx-4 mt-6 flex w-[calc(100%-2rem)] items-center gap-4 rounded-xl p-4 text-slate-400 transition hover:bg-red-500/10 hover:text-red-400"
